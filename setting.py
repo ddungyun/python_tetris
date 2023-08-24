@@ -2,7 +2,6 @@ import curses
 import keyboard
 from curses import wrapper
 
-
 def main(stdscr):
     curses.init_pair(1, curses.COLOR_WHITE,curses.COLOR_RED)
     RED_AND_WHITE= curses.color_pair(1)
@@ -35,10 +34,5 @@ def main(stdscr):
                 pass
 
         # keyboard.on_release_key('down', InitArrowFlag)
-        
-
-    
-
-
 
 wrapper(main)
