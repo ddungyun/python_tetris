@@ -57,6 +57,10 @@ class Tetris:
 
         start_arrow = start.PrintStartMap(stdscr)
 
+        while(start_arrow):
+            setting.PrintSettingMap(stdscr)
+            start_arrow = start.PrintStartMap(stdscr)
+
         self.InitTimer()
         
         while True:

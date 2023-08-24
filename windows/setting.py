@@ -27,14 +27,14 @@ def PrintSettingMap(stdscr):
                     arrow_flag = True
 
             if keyboard.is_pressed('enter'):
-                if (arrow_y) % 4 == 0:
+                if arrow_y == 0:
                     pass
-                elif (arrow_y)%4==1:   
+                elif arrow_y == 1:   
                     pass
-                elif (arrow_y)%4==2:
+                elif arrow_y == 2:
                     pass
                 else:
-                    pass
+                    break
 
             keyboard.on_release_key('down', InitArrowFlag)
         

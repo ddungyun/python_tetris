@@ -44,7 +44,6 @@ def MakeBlockList():
     for matrix_data in matrix_rows:
         matrix = []
         lines = matrix_data.strip().split('\n')
-        print(lines)
         
         for line in lines:
             if line:
@@ -60,11 +59,5 @@ def MakeBlockList():
             for l in range(4):
                 block_list[i][j].append([])
                 block_list[i][j][l].extend(matrix_list[i][l][j * 4 : (j + 1) * 4])
-
-    for i in block_list:
-        for j in i:
-            for l in j:
-                print(l)
-            print()
 
     return block_list
