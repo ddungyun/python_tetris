@@ -43,16 +43,17 @@ block_color_mapping = {
 # 세트에 사용할 블록 타입들을 리스트로 정의
 block_type_set = [I_BLOCK, L_BLOCK, J_BLOCK, T_BLOCK, S_BLOCK, Z_BLOCK, O_BLOCK]
 
-# 세트가 모두 사용될 때까지 반복
+# 한 세트에서 7개의 블록이 모두 다른 블록 타입으로 뽑힐 때까지 반복
 while block_type_set:
-    # 블록 세트의 순서를 섞음
-    random.shuffle(block_type_set)
     
-    for block_type in block_type_set:
-        # 블록 타입을 선택하여 Tetromino 객체 생성
+    selected_block_types = []
+    while len(selected_block_types) < len(block_type_set):
+        # 무작위 블록 생성
         random_block = GenerateRandomBlock()
-        print("Random Block Type:", random_block.block_type)
-        print("Block Color:", block_color_mapping[random_block.block_type])
+        random_block_type = random_block.block_type
         
-    # 다음 세트로 넘어가기 전에 블록 세트 초기화
-    block_type_set = [I_BLOCK, L_BLOCK, J_BLOCK, T_BLOCK, S_BLOCK, Z_BLOCK, O_BLOCK]
+        if random_block_type not in selected_block_types:
+            selected_block_types.append(random_block_type)
+            print("Random Block Type:", random_block.block_type)
+            print("Block Color:", block_color_mapping[random_block.block_type])
+    
