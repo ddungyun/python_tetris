@@ -2,8 +2,8 @@ import random
 import tetris_rotation
 
 class Tetromino:
-    block_list = MakeBlockList()
-    
+    block_list = tetris_rotation.MakeBlockList()
+
     def __init__(self, block_type):
         self.block_type = block_type
         self.rotation = 0

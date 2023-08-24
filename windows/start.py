@@ -2,11 +2,17 @@ import curses
 import keyboard
 from curses import wrapper
 
-
-
-def main(stdscr):
+def PrintStartMap(stdscr):
     curses.init_pair(1, curses.COLOR_WHITE,curses.COLOR_RED)
     RED_AND_WHITE= curses.color_pair(1)
+
+    global arrow_flag
+    arrow_flag= False
+
+    def InitArrowFlag(evt):
+        global arrow_flag
+        arrow_flag = False
+
     arrow_y = 0
     while True:
         stdscr.clear()
@@ -14,7 +20,11 @@ def main(stdscr):
         if keyboard.is_pressed('esc'):
             break
         if keyboard.is_pressed('down'):
+            if not arrow_flag:
                 arrow_y = (arrow_y + 1) % 2
+                arrow_flag = True
+
+        keyboard.on_release_key('down', InitArrowFlag)
         
         stdscr.addstr(arrow_y + 1, 0, "➤ ",RED_AND_WHITE)
         
@@ -24,14 +34,12 @@ def main(stdscr):
         stdscr.refresh()
 
         if keyboard.is_pressed('enter'):
-            if (arrow_y) % 2 == 1:
-                pass
-            else:
-                pass
+            return (arrow_y) % 2
+            
         
                   
         
 
-
-wrapper(main)
+if __name__ == 'main':
+    wrapper(PrintStartMap)
 

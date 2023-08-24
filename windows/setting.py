@@ -2,18 +2,13 @@ import curses
 import keyboard
 from curses import wrapper
 
-
-
-
-
-def main(stdscr):
+def PrintSettingMap(stdscr):
     global arrow_flag
     arrow_flag= False
 
     def InitArrowFlag(evt):
         global arrow_flag
         arrow_flag = False
-
 
         
     stdscr.clear()
@@ -53,5 +48,5 @@ def main(stdscr):
         
 
     
-
-wrapper(main)
+if __name__ == 'main':
+    wrapper(PrintSettingMap)

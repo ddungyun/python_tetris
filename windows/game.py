@@ -1,7 +1,7 @@
 import curses
 from curses import wrapper
 
-def main(stdscr):
+def PrintGameMap(stdscr):
 
     box_x1 = 0
     box_y1 = 0
@@ -64,10 +64,5 @@ def main(stdscr):
         stdscr.addstr(17,40,'┗━━━━━━━━┛')         
         stdscr.refresh()
 
-
-        
-                  
-        
-
-
-wrapper(main)
+if __name__ == 'main':
+    wrapper(PrintGameMap)

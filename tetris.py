@@ -3,9 +3,11 @@
 #-*- coding: utf-8 -*-
 
 import curses
+from curses import wrapper
 import time
 import keyboard
-from curses import wrapper
+import tetrimino
+from windows import game, setting, start
 
 class Tetris:
 
@@ -52,6 +54,8 @@ class Tetris:
     def Game(self, stdscr):
         curses.delay_output(200)
         curses.curs_set(0)
+
+        start_arrow = start.PrintStartMap(stdscr)
 
         self.InitTimer()
         
