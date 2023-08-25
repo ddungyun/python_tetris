@@ -34,7 +34,7 @@ class Tetris:
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
             ]
-        
+
         self.score = 0
         self.rotate = 0
         self.block_type = 0
@@ -50,19 +50,21 @@ class Tetris:
         self.stop = 2
         self.map_height = 20
         self.map_width = 10
+        self.game_box_x = 16
+        self.game_box_y = 1
         
     def Game(self, stdscr):
-        curses.delay_output(200)
         curses.curs_set(0)
 
-        start_arrow = start.PrintStartMap(stdscr)
+        start_win = curses.newwin(30, 120, 0, 0)
+        start_arrow = start.PrintStartMap(start_win)
 
-        while(start_arrow):
+        if start_arrow:
             setting.PrintSettingMap(stdscr)
-            start_arrow = start.PrintStartMap(stdscr)
 
         self.InitTimer()
-        
+        stdscr.erase()
+
         while True:
 
             self.down_end_timer = time.time()
@@ -129,20 +131,23 @@ class Tetris:
             
             down_elapsed_time = self.GetElapsedDownTime()
 
+            # 일반적인 드랍 타이머
             if down_elapsed_time > self.drop_speed:
                 if not self.IsFloor():
                     if not self.CheckHeightObstacle(1):
                         self.down_start_timer = self.down_end_timer
                         self.DownBlock()
-                    
+
+            # 바닥에서 굳히는 타이머
             if self.stop > self.drop_speed:
                 if down_elapsed_time > self.stop:
                     self.map[self.block_y][self.block_x] = 1
                     self.block_x = 4
                     self.block_y = 0
                     self.InitDownTimer()
-                
-            self.PrintMap(stdscr)
+
+            self.PrintMap(stdscr, self.game_box_y, self.game_box_x)
+
     def CheckLines(self):
         line_count = 0
         
@@ -221,17 +226,18 @@ class Tetris:
     def MoveBlock(self, dir):
         self.block_x += dir
 
-    def PrintMap(self, stdscr):
+    def PrintMap(self, stdscr, begin_y=0, begin_x=0):
 
         stdscr.clear()
+        game.PrintGameMap(stdscr)
 
         for y in range(20):
             for x in range(10):
                 if self.map[y][x] != 0:
-                    stdscr.addstr(y, x * 2, u'▣')
+                    stdscr.addstr(y + begin_y, x * 2 + begin_x, u'▣')
 
                 if (y == self.block_y) and (x == self.block_x):
-                    stdscr.addstr(y, x * 2, u'⭘')
+                    stdscr.addstr(y + begin_y, x * 2 + begin_x, u'⭘')
         stdscr.refresh()
 
 

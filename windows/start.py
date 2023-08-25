@@ -12,20 +12,9 @@ def PrintStartMap(stdscr):
     def InitArrowFlag(evt):
         global arrow_flag
         arrow_flag = False
-
-    arrow_y = 0
-    while True:
-        stdscr.clear()
-        
-        if keyboard.is_pressed('esc'):
-            break
-        if keyboard.is_pressed('down'):
-            if not arrow_flag:
-                arrow_y = (arrow_y + 1) % 2
-                arrow_flag = True
-
-        keyboard.on_release_key('down', InitArrowFlag)
-        
+    
+    def PrintMap():
+        stdscr.erase()
         stdscr.addstr(arrow_y + 1, 0, "➤ ",RED_AND_WHITE)
         
         stdscr.addstr(0, 15, "TETRIS",RED_AND_WHITE) 
@@ -33,6 +22,34 @@ def PrintStartMap(stdscr):
         stdscr.addstr(2, 15,"SETTING",RED_AND_WHITE)
         stdscr.refresh()
 
+    arrow_y = 0
+
+    PrintMap()
+    while True:
+        
+        if keyboard.is_pressed('esc'):
+            break
+
+        if keyboard.is_pressed('up'):
+            if not arrow_flag:
+                arrow_y -= 1
+                if arrow_y < 0:
+                    arrow_y = 1
+                
+                PrintMap()
+
+                arrow_flag = True
+
+        if keyboard.is_pressed('down'):
+            if not arrow_flag:
+                arrow_y = (arrow_y + 1) % 2
+
+                PrintMap()
+                arrow_flag = True
+
+        keyboard.on_release_key('down', InitArrowFlag)
+        keyboard.on_release_key('up', InitArrowFlag)
+        
         if keyboard.is_pressed('enter'):
             return (arrow_y) % 2
             
@@ -40,6 +57,6 @@ def PrintStartMap(stdscr):
                   
         
 
-if __name__ == 'main':
+if __name__ == '__main__':
     wrapper(PrintStartMap)
 

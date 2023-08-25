@@ -6,7 +6,21 @@ class Tetromino:
 
     def __init__(self, block_type):
         self.block_type = block_type
+        self.current_block = Tetromino.block_list[self.block_type][self.rotation]
         self.rotation = 0
+    
+    def RotateClockWise(self):
+        self.rotation = (self.rotation + 1) % 4
+    
+    def RotateCounterClockWise(self):
+        self.rotation -= 1
+        if self.rotation < 0:
+            sel.rotation = 3
+    
+    def GetCurrentBlock(self):
+        return current_block
+
+    
     
 
 # 블록 타입 상수 정의
@@ -49,8 +63,6 @@ def GenerateRandomBlocks():
         
         block_type_set.remove(random_block_type)
         selected_block_types.append(random_block_type)
-        print("Random Block Type:", random_block.block_type)
-        print("Block Color:", block_color_mapping[random_block.block_type])
 
 
     return selected_block_types
