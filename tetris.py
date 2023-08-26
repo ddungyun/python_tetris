@@ -203,7 +203,6 @@ class Tetris:
                 line_count += 1
         
         return line_count
-                
     
     def CheckWidthObstacle(self, dir):
         if self.map[self.block_y][self.block_x + dir]:
@@ -313,7 +312,6 @@ class Tetris:
             for x in range(4):
                 if block[y][x]:
                     stdscr.addstr(y + begin_y + self.block_y, (self.block_x + x) * 2 + begin_x, '▣')
-
 
 t = Tetris()
 
